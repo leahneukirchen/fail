@@ -1,0 +1,59 @@
+FAIL(1)                     General Commands Manual                    FAIL(1)
+
+NAME
+     fail – crash in various possible ways
+
+SYNOPSIS
+     fail [-123Oacdikrst]
+
+DESCRIPTION
+     fail crashes in various possible ways to help you debug how other
+     software reacts to this.
+
+     The options are as follows:
+
+     -1      Return with exit status -1.
+
+     -2      Return with exit status 2.
+
+     -3      Return with exit status 111.
+
+     -O      Allocate memory in an infinite loop, to trigger an out of memory
+             situation.  A dot is printed after each 16MB allocation.
+             Warning: this may lock up your machine and/or result in killing
+             other processes, too.  Use with caution.
+
+     -a      Call abort().
+
+     -c      Violate a seccomp() strict mode restriction.
+
+     -d      Divide by zero.
+
+     -i      Execute an illegal instruction.
+
+     -k      Raise SIGKILL.
+
+     -r      Trigger an infinite recursion.
+
+     -s      Trigger a segmentation fault by writing to a null pointer.
+
+     -t      Trigger GCC's __builtin_trap().
+
+EXIT STATUS
+     The fail utility never returns 0, because failure is inevitable.
+
+SEE ALSO
+     false(1), seccomp(2), abort(3)
+
+AUTHORS
+     Leah Neukirchen <leah@vuxu.org>
+
+LICENSE
+     fail is in the public domain.
+
+     To the extent possible under law, the creator of this work has waived all
+     copyright and related or neighboring rights to this work.
+
+     http://creativecommons.org/publicdomain/zero/1.0/
+
+Void Linux                       July 14, 2017                      Void Linux

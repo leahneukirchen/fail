@@ -1,0 +1,72 @@
+.Dd July 14, 2017
+.Dt FAIL 1
+.Os
+.Sh NAME
+.Nm fail
+.Nd crash in various possible ways
+.Sh SYNOPSIS
+.Nm
+.Op Fl 123Oacdikrst
+.Sh DESCRIPTION
+.Nm
+crashes in various possible ways to
+help you debug how other software reacts to this.
+.Pp
+The options are as follows:
+.Bl -tag -width Ds
+.It Fl 1
+Return with exit status -1.
+.It Fl 2
+Return with exit status 2.
+.It Fl 3
+Return with exit status 111.
+.It Fl O
+Allocate memory in an infinite loop,
+to trigger an out of memory situation.
+A dot is printed after each 16MB allocation.
+.Sy Warning :
+this may lock up your machine
+and/or result in killing other processes, too.
+Use with caution.
+.It Fl a
+Call
+.Fn abort .
+.It Fl c
+Violate a
+.Fn seccomp
+strict mode restriction.
+.It Fl d
+Divide by zero.
+.It Fl i
+Execute an illegal instruction.
+.It Fl k
+Raise SIGKILL.
+.It Fl r
+Trigger an infinite recursion.
+.It Fl s
+Trigger a segmentation fault by writing to a null pointer.
+.It Fl t
+Trigger GCC's
+.Fn __builtin_trap .
+.El
+.Sh EXIT STATUS
+The
+.Nm
+utility never returns 0,
+because failure is inevitable.
+.Sh SEE ALSO
+.Xr false 1 ,
+.Xr seccomp 2 ,
+.Xr abort 3
+.Sh AUTHORS
+.An Leah Neukirchen Aq Mt leah@vuxu.org
+.Sh LICENSE
+.Nm
+is in the public domain.
+.Pp
+To the extent possible under law,
+the creator of this work
+has waived all copyright and related or
+neighboring rights to this work.
+.Pp
+.Lk http://creativecommons.org/publicdomain/zero/1.0/
