@@ -121,6 +121,6 @@ main(int argc, char *argv[])
 		}
         }
 
-	write(2, "Usage: fail [-123Oacdikrst]", 8);
+	write(2, "Usage: fail [-123Oacdikrst]\n", 28);
 	exit(1);
 }
