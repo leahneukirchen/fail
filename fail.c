@@ -13,7 +13,8 @@
 #include <unistd.h>
 
 void
-segfault() {
+segfault()
+{
 	volatile int *nullp = 0;
 
 	*nullp = 42;
@@ -21,7 +22,8 @@ segfault() {
 
 // can lockup your machine
 void
-oom() {
+oom()
+{
 	long c = 0;
 	static long last = 0;
 
@@ -40,7 +42,8 @@ oom() {
 }
 
 void
-recurse(char *n) {
+recurse(char *n)
+{
 	char m[1024];
 	recurse(m);
 	if (n)
@@ -48,16 +51,19 @@ recurse(char *n) {
 }
 
 void
-abortme() {
+abortme()
+{
 	abort();
 }
 
 void
-killme() {
+killme()
+{
 	raise(SIGKILL);
 }
 
-void illegalins() {
+void illegalins()
+{
 #if defined(__x86_64__) || defined(__i386__)
         __asm__ __volatile__( "ud1" : : : "memory" );
 #elif defined(__arm__)
@@ -75,23 +81,27 @@ void illegalins() {
 #endif
 }
 
-void trap() {
+void trap()
+{
 	__builtin_trap();
 }
 
 int zero = 0;
-void divtrap() {
+void divtrap()
+{
 	zero = 1/zero;
 }
 
 void
-violate_seccomp() {
+violate_seccomp()
+{
 	prctl(PR_SET_SECCOMP, SECCOMP_MODE_STRICT);
 	chdir("/");
 }
 
 int
-main(int argc, char *argv[]) {
+main(int argc, char *argv[])
+{
 	int c;
 
 	while ((c = getopt(argc, argv, "123Oacdikrst")) != -1) {
