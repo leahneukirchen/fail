@@ -10,6 +10,9 @@ DESCRIPTION
      fail crashes in various possible ways to help you debug how other
      software reacts to this.
 
+     In addition to the crashes below, fail will also cause a segmentation
+     fault when its binary is loaded using dlopen(3) or LD_PRELOAD.
+
      The options are as follows:
 
      -1      Return with exit status -1.
@@ -54,6 +57,6 @@ LICENSE
      To the extent possible under law, the creator of this work has waived all
      copyright and related or neighboring rights to this work.
 
-     http://creativecommons.org/publicdomain/zero/1.0/
+           http://creativecommons.org/publicdomain/zero/1.0/
 
 Void Linux                       July 14, 2017                      Void Linux

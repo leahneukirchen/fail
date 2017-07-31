@@ -12,6 +12,13 @@
 crashes in various possible ways to
 help you debug how other software reacts to this.
 .Pp
+In addition to the crashes below,
+.Nm
+will also cause a segmentation fault when its binary is loaded using
+.Xr dlopen 3
+or
+.Ev LD_PRELOAD .
+.Pp
 The options are as follows:
 .Bl -tag -width Ds
 .It Fl 1

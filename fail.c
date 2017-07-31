@@ -2,6 +2,7 @@
 
 #include <linux/seccomp.h>
 
+#include <sys/auxv.h>
 #include <sys/prctl.h>
 #include <sys/ptrace.h>
 #include <sys/stat.h>
@@ -18,6 +19,19 @@ segfault()
 	volatile int *nullp = 0;
 
 	*nullp = 42;
+}
+
+void _start();
+
+__attribute__((__constructor__))
+void
+dlcrash()
+{
+	volatile int *nullp = 0;
+
+	// don't trigger if we are executed as a program
+	if (getauxval(AT_ENTRY) != (unsigned long)_start)
+		*nullp = 1337;
 }
 
 // can lockup your machine
