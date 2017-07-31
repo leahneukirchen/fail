@@ -1,6 +1,7 @@
 ALL=fail
 
-CFLAGS=-g -O2 -Wall -Wno-switch -Wextra -Wwrite-strings
+CFLAGS=-g -O1 -Wall -Wno-switch -Wextra -Wwrite-strings -fPIE
+LDFLAGS=-pie
 
 DESTDIR=
 PREFIX=/usr/local
