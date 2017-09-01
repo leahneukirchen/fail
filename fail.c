@@ -79,17 +79,17 @@ killme()
 void illegalins()
 {
 #if defined(__x86_64__) || defined(__i386__)
-        __asm__ __volatile__( "ud1" : : : "memory" );
+	__asm__ __volatile__ ("ud1" : : : "memory");
 #elif defined(__arm__)
-        __asm__ __volatile__(
+	__asm__ __volatile__ (
 	#ifndef __thumb__
 		".word 0xe7f000f0"
 	#else
 		".short 0xdeff"
 	#endif
-                : : : "memory");
+		: : : "memory");
 #elif defined(__aarch64__)
-	__asm__ __volatile__( ".word 0x00800011" : : : "memory" );
+	__asm__ __volatile__ (".word 0x00800011" : : : "memory");
 #else
 	#error implement illegalins for this architecture
 #endif
@@ -119,21 +119,21 @@ main(int argc, char *argv[])
 	int c;
 
 	while ((c = getopt(argc, argv, "123Oacdikrst")) != -1) {
-        	switch (c) {
+		switch (c) {
 		case '1': exit(-1); break;
 		case '2': exit(2); break;
 		case '3': exit(111); break;
-                case 'c': violate_seccomp(); break;
+		case 'c': violate_seccomp(); break;
 		case 'd': divtrap(); break;
 		case 'i': illegalins(); break;
 		case 't': trap(); break;
-                case 'O': oom(); break;
-                case 'a': abortme(); break;
-                case 'k': killme(); break;
-                case 'r': recurse(0); break;
-                case 's': segfault(); break;                
+		case 'O': oom(); break;
+		case 'a': abortme(); break;
+		case 'k': killme(); break;
+		case 'r': recurse(0); break;
+		case 's': segfault(); break;
 		}
-        }
+	}
 
 	write(2, "Usage: fail [-123Oacdikrst]\n", 28);
 	exit(1);
