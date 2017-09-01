@@ -48,6 +48,10 @@ oom()
 
 	while (1) {
 		long *m = malloc(4096*4096);
+		if (!m) {
+			write(1, "\n", 1);
+			exit(3);
+		}
 		m[0] = last;
 		m[1] = c++;
 		last = (long)m;
