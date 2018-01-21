@@ -127,15 +127,15 @@ main(int argc, char *argv[])
 		case '1': exit(-1); break;
 		case '2': exit(2); break;
 		case '3': exit(111); break;
+		case 'O': oom(); break;
+		case 'a': abortme(); break;
 		case 'c': violate_seccomp(); break;
 		case 'd': divtrap(); break;
 		case 'i': illegalins(); break;
-		case 't': trap(); break;
-		case 'O': oom(); break;
-		case 'a': abortme(); break;
 		case 'k': killme(); break;
 		case 'r': recurse(0); break;
 		case 's': segfault(); break;
+		case 't': trap(); break;
 		}
 	}
 
