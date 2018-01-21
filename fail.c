@@ -10,6 +10,7 @@
 
 #include <fcntl.h>
 #include <signal.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 
@@ -32,6 +33,15 @@ dlcrash()
 	// don't trigger if we are executed as a program
 	if (getauxval(AT_ENTRY) != (unsigned long)_start)
 		*nullp = 1337;
+}
+
+void
+uninterruptible()
+{
+	printf("pid %d is now in state D\n", getpid());
+	vfork();
+	pause();
+	exit(1);
 }
 
 // can lockup your machine
@@ -122,11 +132,12 @@ main(int argc, char *argv[])
 {
 	int c;
 
-	while ((c = getopt(argc, argv, "123Oacdikrst")) != -1) {
+	while ((c = getopt(argc, argv, "123DOacdikrst")) != -1) {
 		switch (c) {
 		case '1': exit(-1); break;
 		case '2': exit(2); break;
 		case '3': exit(111); break;
+		case 'D': uninterruptible(); break;
 		case 'O': oom(); break;
 		case 'a': abortme(); break;
 		case 'c': violate_seccomp(); break;

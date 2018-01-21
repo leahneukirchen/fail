@@ -6,7 +6,7 @@
 .Nd crash in various possible ways
 .Sh SYNOPSIS
 .Nm
-.Op Fl 123Oacdikrst
+.Op Fl 123DOacdikrst
 .Sh DESCRIPTION
 .Nm
 crashes in various possible ways to
@@ -27,6 +27,13 @@ Return with exit status -1.
 Return with exit status 2.
 .It Fl 3
 Return with exit status 111.
+.It Fl D
+Create a process that is in uninterruptible sleep (state D) and
+print its pid.
+(This uses
+.Xr vfork 2
+and
+.Xr pause 2 . )
 .It Fl O
 Allocate memory in an infinite loop,
 to trigger an out of memory situation.
