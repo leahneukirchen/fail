@@ -3,6 +3,7 @@
 #include <linux/seccomp.h>
 
 #include <sys/auxv.h>
+#include <sys/mman.h>
 #include <sys/prctl.h>
 #include <sys/ptrace.h>
 #include <sys/stat.h>
@@ -127,12 +128,27 @@ violate_seccomp()
 	chdir("/");
 }
 
+void
+mmap_sigbus()
+{
+	int fd = open("/bin/sh", O_RDONLY);
+	if (fd < 0)
+		exit(1);
+	char *m = mmap(0, 10*1024*1024, PROT_READ, MAP_SHARED, fd, 0);
+	if (m == MAP_FAILED)
+		exit(1);
+
+	((volatile char *)m)[9*1024*1024];
+
+	exit(1);
+}
+
 int
 main(int argc, char *argv[])
 {
 	int c;
 
-	while ((c = getopt(argc, argv, "123DOacdikrst")) != -1) {
+	while ((c = getopt(argc, argv, "123DOabcdikrst")) != -1) {
 		switch (c) {
 		case '1': exit(-1); break;
 		case '2': exit(2); break;
@@ -140,6 +156,7 @@ main(int argc, char *argv[])
 		case 'D': uninterruptible(); break;
 		case 'O': oom(); break;
 		case 'a': abortme(); break;
+		case 'b': mmap_sigbus(); break;
 		case 'c': violate_seccomp(); break;
 		case 'd': divtrap(); break;
 		case 'i': illegalins(); break;
@@ -150,6 +167,6 @@ main(int argc, char *argv[])
 		}
 	}
 
-	write(2, "Usage: fail [-123Oacdikrst]\n", 28);
+	write(2, "Usage: fail [-123Oabcdikrst]\n", 29);
 	exit(1);
 }

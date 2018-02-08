@@ -1,4 +1,4 @@
-.Dd July 14, 2017
+.Dd February 08, 2017
 .Dt FAIL 1
 .Os
 .Sh NAME
@@ -6,7 +6,7 @@
 .Nd crash in various possible ways
 .Sh SYNOPSIS
 .Nm
-.Op Fl 123DOacdikrst
+.Op Fl 123DOabcdikrst
 .Sh DESCRIPTION
 .Nm
 crashes in various possible ways to
@@ -45,6 +45,10 @@ Use with caution.
 .It Fl a
 Call
 .Fn abort .
+.It Fl b
+Trigger SIGBUS by accessing
+.Xr mmap 2
+memory beyond the end of a file.
 .It Fl c
 Violate a
 .Fn seccomp
