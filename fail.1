@@ -44,14 +44,14 @@ and/or result in killing other processes, too.
 Use with caution.
 .It Fl a
 Call
-.Fn abort .
+.Xr abort 3 .
 .It Fl b
 Trigger SIGBUS by accessing
 .Xr mmap 2
 memory beyond the end of a file.
 .It Fl c
 Violate a
-.Fn seccomp
+.Xr seccomp 2
 strict mode restriction.
 .It Fl d
 Divide by zero.
