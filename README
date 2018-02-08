@@ -4,7 +4,7 @@ NAME
      fail – crash in various possible ways
 
 SYNOPSIS
-     fail [-123Oacdikrst]
+     fail [-123DOabcdikrst]
 
 DESCRIPTION
      fail crashes in various possible ways to help you debug how other
@@ -21,14 +21,20 @@ DESCRIPTION
 
      -3      Return with exit status 111.
 
+     -D      Create a process that is in uninterruptible sleep (state D) and
+             print its pid.  (This uses vfork(2) and pause(2).)
+
      -O      Allocate memory in an infinite loop, to trigger an out of memory
              situation.  A dot is printed after each 16MB allocation.
              Warning: this may lock up your machine and/or result in killing
              other processes, too.  Use with caution.
 
-     -a      Call abort().
+     -a      Call abort(3).
 
-     -c      Violate a seccomp() strict mode restriction.
+     -b      Trigger SIGBUS by accessing mmap(2) memory beyond the end of a
+             file.
+
+     -c      Violate a seccomp(2) strict mode restriction.
 
      -d      Divide by zero.
 
@@ -59,4 +65,4 @@ LICENSE
 
            http://creativecommons.org/publicdomain/zero/1.0/
 
-Void Linux                       July 14, 2017                      Void Linux
+Void Linux                     February 8, 2017                     Void Linux
