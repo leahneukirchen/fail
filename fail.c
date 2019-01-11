@@ -94,7 +94,7 @@ killme()
 void illegalins()
 {
 #if defined(__x86_64__) || defined(__i386__)
-	__asm__ __volatile__ ("ud1" : : : "memory");
+	__asm__ __volatile__ (".byte 0x0f, 0xb9" : : : "memory");
 #elif defined(__arm__)
 	__asm__ __volatile__ (
 	#ifndef __thumb__
