@@ -4,7 +4,7 @@ NAME
      fail – crash in various possible ways
 
 SYNOPSIS
-     fail [-123DOabcdikrst]
+     fail [-123DORabcdikrst]
 
 DESCRIPTION
      fail crashes in various possible ways to help you debug how other
@@ -29,6 +29,9 @@ DESCRIPTION
              Warning: this may lock up your machine and/or result in killing
              other processes, too.  Use with caution.
 
+     -R      Trigger an infinite recursion that uses alloca(3) heavily (to
+             test GCC's -fstack-clash-protection).
+
      -a      Call abort(3).
 
      -b      Trigger SIGBUS by accessing mmap(2) memory beyond the end of a
@@ -42,7 +45,8 @@ DESCRIPTION
 
      -k      Raise SIGKILL.
 
-     -r      Trigger an infinite recursion.
+     -r      Trigger an infinite recursion that uses less than a page of stack
+             per level.
 
      -s      Trigger a segmentation fault by writing to a null pointer.
 
@@ -63,6 +67,6 @@ LICENSE
      To the extent possible under law, the creator of this work has waived all
      copyright and related or neighboring rights to this work.
 
-           http://creativecommons.org/publicdomain/zero/1.0/
+     http://creativecommons.org/publicdomain/zero/1.0/
 
-Void Linux                     February 8, 2017                     Void Linux
+Void Linux                     January 11, 2019                     Void Linux

@@ -1,4 +1,4 @@
-.Dd February 08, 2017
+.Dd January 11, 2019
 .Dt FAIL 1
 .Os
 .Sh NAME
@@ -6,7 +6,7 @@
 .Nd crash in various possible ways
 .Sh SYNOPSIS
 .Nm
-.Op Fl 123DOabcdikrst
+.Op Fl 123DORabcdikrst
 .Sh DESCRIPTION
 .Nm
 crashes in various possible ways to
@@ -42,6 +42,14 @@ A dot is printed after each 16MB allocation.
 this may lock up your machine
 and/or result in killing other processes, too.
 Use with caution.
+.It Fl R
+Trigger an infinite recursion that uses
+.Xr alloca 3
+heavily
+.Po
+to test GCC's
+.Fl fstack-clash-protection
+.Pc .
 .It Fl a
 Call
 .Xr abort 3 .
@@ -60,7 +68,7 @@ Execute an illegal instruction.
 .It Fl k
 Raise SIGKILL.
 .It Fl r
-Trigger an infinite recursion.
+Trigger an infinite recursion that uses less than a page of stack per level.
 .It Fl s
 Trigger a segmentation fault by writing to a null pointer.
 .It Fl t

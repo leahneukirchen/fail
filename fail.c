@@ -9,6 +9,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
+#include <alloca.h>
 #include <fcntl.h>
 #include <signal.h>
 #include <stdio.h>
@@ -73,8 +74,17 @@ oom()
 void
 recurse(char *n)
 {
-	char m[1024];
+	char m[512];
 	recurse(m);
+	if (n)
+		m[0] = n[0] = 42;
+}
+
+void
+recurse_alloca(char *n)
+{
+	char *m = alloca(1024*1024);
+	recurse_alloca(m);
 	if (n)
 		m[0] = n[0] = 42;
 }
@@ -148,13 +158,14 @@ main(int argc, char *argv[])
 {
 	int c;
 
-	while ((c = getopt(argc, argv, "123DOabcdikrst")) != -1) {
+	while ((c = getopt(argc, argv, "123DORabcdikrst")) != -1) {
 		switch (c) {
 		case '1': exit(-1); break;
 		case '2': exit(2); break;
 		case '3': exit(111); break;
 		case 'D': uninterruptible(); break;
 		case 'O': oom(); break;
+		case 'R': recurse_alloca(0); break;
 		case 'a': abortme(); break;
 		case 'b': mmap_sigbus(); break;
 		case 'c': violate_seccomp(); break;
@@ -167,6 +178,6 @@ main(int argc, char *argv[])
 		}
 	}
 
-	write(2, "Usage: fail [-123Oabcdikrst]\n", 29);
+	write(2, "Usage: fail [-123ORabcdikrst]\n", 30);
 	exit(1);
 }
