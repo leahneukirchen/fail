@@ -4,7 +4,7 @@ NAME
      fail – crash in various possible ways
 
 SYNOPSIS
-     fail [-123DORabcdikrst]
+     fail [-123DORSabcdikrst]
 
 DESCRIPTION
      fail crashes in various possible ways to help you debug how other
@@ -31,6 +31,8 @@ DESCRIPTION
 
      -R      Trigger an infinite recursion that uses alloca(3) heavily (to
              test GCC's -fstack-clash-protection).
+
+     -S      Smash the stack using strcpy(3), to test GCC's -fstack-protector.
 
      -a      Call abort(3).
 
@@ -69,4 +71,4 @@ LICENSE
 
      http://creativecommons.org/publicdomain/zero/1.0/
 
-Void Linux                     January 11, 2019                     Void Linux
+Void Linux                     December 19, 2019                    Void Linux

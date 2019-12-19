@@ -14,6 +14,7 @@
 #include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
 
 void
@@ -90,6 +91,15 @@ recurse_alloca(char *n)
 }
 
 void
+stack_smash()
+{
+	char buffer[2];
+	strcpy(buffer, "stack smash stack smash stack smash stack smash");
+	printf("%s", buffer);
+	/* if we exit here, gcc may optimize the smashing detection away */
+}
+
+void
 abortme()
 {
 	abort();
@@ -160,7 +170,7 @@ main(int argc, char *argv[])
 {
 	int c;
 
-	while ((c = getopt(argc, argv, "123DORabcdikrst")) != -1) {
+	while ((c = getopt(argc, argv, "123DORSabcdikrst")) != -1) {
 		switch (c) {
 		case '1': exit(-1); break;
 		case '2': exit(2); break;
@@ -176,10 +186,11 @@ main(int argc, char *argv[])
 		case 'k': killme(); break;
 		case 'r': recurse(0); break;
 		case 's': segfault(); break;
+		case 'S': stack_smash(); break;
 		case 't': trap(); break;
 		}
 	}
 
-	write(2, "Usage: fail [-123ORabcdikrst]\n", 30);
+	write(2, "Usage: fail [-123ORSabcdikrst]\n", 31);
 	exit(1);
 }

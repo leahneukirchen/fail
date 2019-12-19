@@ -1,4 +1,4 @@
-.Dd January 11, 2019
+.Dd December 19, 2019
 .Dt FAIL 1
 .Os
 .Sh NAME
@@ -6,7 +6,7 @@
 .Nd crash in various possible ways
 .Sh SYNOPSIS
 .Nm
-.Op Fl 123DORabcdikrst
+.Op Fl 123DORSabcdikrst
 .Sh DESCRIPTION
 .Nm
 crashes in various possible ways to
@@ -50,6 +50,11 @@ heavily
 to test GCC's
 .Fl fstack-clash-protection
 .Pc .
+.It Fl S
+Smash the stack using
+.Xr strcpy 3 ,
+to test GCC's
+.Fl fstack-protector .
 .It Fl a
 Call
 .Xr abort 3 .
