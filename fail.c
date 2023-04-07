@@ -127,6 +127,8 @@ void illegalins()
 	__asm__ __volatile__ (".word 0x00800011" : : : "memory");
 #elif defined(__powerpc__)
 	__asm__ __volatile__ (".long 0" : : : "memory");
+#elif defined(__riscv)
+	__asm__ __volatile__ (".short 0" : : : "memory");
 #else
 	#error implement illegalins for this architecture
 #endif
