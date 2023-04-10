@@ -1,6 +1,7 @@
 ALL=fail
 
-CFLAGS=-g -O1 -Wall -Wno-switch -Wextra -Wwrite-strings -fPIE
+NOWARN=-Wno-switch -Wno-infinite-recursion -Wno-array-bounds -Wno-stringop-overflow
+CFLAGS=-g -O1 -Wall -Wextra -Wwrite-strings $(NOWARN) -fPIE
 LDFLAGS=-pie
 
 DESTDIR=
